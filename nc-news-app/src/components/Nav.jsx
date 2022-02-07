@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 function Nav() {
   return (
     <nav>
+      <Link to="/">
         <img src="../../logo192.png" alt="logo" height="50px"></img>
-      <ul>
-      </ul>
+      </Link>
+
+      <ul></ul>
     </nav>
   );
 }

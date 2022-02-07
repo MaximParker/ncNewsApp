@@ -1,19 +1,46 @@
 nav {
-  background-color: aqua;
+  background-color: rgb(56, 47, 47);
 }
 
 #topics-container {
-  background-color: lightgreen;
+  background-color: brown;
 }
 
-#articles-list {
-  background-color: hotpink;
+#Homepage__list {
+  background-color: goldenrod;
 }
 
 .articles__card {
-  background-color: lightpink;
+  background-color: beige;
 }
 
-#article {
-  background-color: antiquewhite;
+#Article {
+  background-color: rgb(255, 194, 194);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#Article__article h2 {
+  background-color: rgb(255, 34, 34);
+}
+
+#Article__body {
+  background-color: rgb(255, 147, 147);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#Article__category {
+  background-color: rgb(255, 75, 75);
+}
+
+#Comments-container {
+  background-color: green;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.Comment {
+  background-color: lightgreen;
+  margin:10px;
 }

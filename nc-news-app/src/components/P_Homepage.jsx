@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { capitalise, getAllTopics, getArticlesByTopic } from "../utils/api";
+import { capitalise, formatDate, getAllTopics, getArticlesByTopic } from "../utils/api";
+import BackToTop from "./BackToTop";
+import Footer from "./Footer";
 
 function Homepage() {
   const [topicsList, setTopicsList] = useState([]);
@@ -26,22 +28,21 @@ function Homepage() {
     <>
       <section id="topics-container">
         <ul>
-          <li key={0} onClick={(event) => setCurrentTopic("")}>
-            Any
+          <li key={0}>
+            <button onClick={(event) => setCurrentTopic("")}>All posts</button>
           </li>
           {topicsList.map((topic) => {
             return (
-              <li
-                key={topic.slug}
-                onClick={(event) => setCurrentTopic(topic.slug)}
-              >
-                {topic.slug}
+              <li key={topic.slug}>
+                <button onClick={(event) => setCurrentTopic(topic.slug)}>
+                  {topic.slug}
+                </button>
               </li>
             );
           })}
         </ul>
       </section>
-      <section id="articles-list">
+      <section id="Homepage__list">
         {currentTopic === "" ? <h1>All posts</h1> : <h1>{currentTopic}</h1>}
         <label htmlFor="select-sort-by">Sort by </label>
         <select
@@ -94,7 +95,7 @@ function Homepage() {
                   <h3>{article.author}</h3>
                   <p>
                     {capitalise(article.topic)},{" "}
-                    {article.created_at.substring(0, 10)}
+                    {formatDate(article.created_at)}
                   </p>
                   <button>⭐ ({article.votes})</button>
                   <Link to="/">
@@ -106,6 +107,8 @@ function Homepage() {
           })}
         </ul>
       </section>
+      <BackToTop />
+      <Footer />
     </>
   );
 }

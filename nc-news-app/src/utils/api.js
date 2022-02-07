@@ -16,7 +16,7 @@ export const getArticlesByTopic = (topic, sort_by, order) => {
       params: { topic, sort_by, order }
     })
     .then((res) => {
-      console.log("DATA:", res.data.articles);
+      console.log("getArticlesByTopic:", res.data.articles);
       return res.data.articles;
     });
 };
@@ -25,8 +25,17 @@ export const getArticleByID = (id) => {
   return db
     .get(`/articles/${id}`)
     .then((res) => {
-      console.log("DATA:", res.data.article);
+      console.log("getArticleByID:", res.data.article);
       return res.data.article;
+    });
+};
+
+export const getCommentsByArticleID = (id) => {
+  return db
+    .get(`/articles/${id}/comments`)
+    .then((res) => {
+      console.log("getCommentsByArticleID:", res.data.comments);
+      return res.data.comments;
     });
 };
 
@@ -35,4 +44,10 @@ export const capitalise = (input) => {
     return input[0].toUpperCase() + input.substring(1);
   }
   return null;
+}
+
+export const formatDate = (input) => {
+  if (input) {
+    return `${input.substring(8, 10)}-${input.substring(5, 7)}-${input.substring(0, 4)}`
+  }
 }
