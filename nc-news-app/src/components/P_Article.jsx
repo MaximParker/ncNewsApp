@@ -38,25 +38,27 @@ function Article() {
 
   return (
     <>
-      <section id="Article">
+      <section className="articles__card">
         <>
-          <h2>{articleData.title}</h2>
+          <h1>{articleData.title}</h1>
           <p>
             <strong>{articleData.author}</strong>,{" "}
             {formatDate(articleData.created_at)}
           </p>
-          <p id="Article__body">{articleData.body}</p>
+          <p>{articleData.body}</p>
           <button>⭐ ({articleData.votes})</button>
         </>
       </section>
-      <p id="Article__category">See more about {articleData.topic}</p>
-      <section id="Comments-container">
+      <p className="TopicsCard">
+        See more about <strong>{articleData.topic}</strong>
+      </p>
+      <section className="Container">
         <>
           <h3>Comments ({articleData.comment_count})</h3>
           <ul>
             {commentsData.map((comment) => {
               return (
-                <li key={comment.comment_id} className="Comment">
+                <li key={comment.comment_id} className="articles__card">
                   <strong>{comment.author}</strong>
                   <p>{comment.body}</p>
                   <button>⭐ ({comment.votes})</button>

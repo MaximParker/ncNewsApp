@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { capitalise, formatDate, getAllTopics, getArticlesByTopic } from "../utils/api";
+import {
+  capitalise,
+  formatDate,
+  getAllTopics,
+  getArticlesByTopic,
+} from "../utils/api";
 import BackToTop from "./BackToTop";
 import Footer from "./Footer";
 
@@ -26,7 +31,7 @@ function Homepage() {
 
   return (
     <>
-      <section id="topics-container">
+      <section id="TopicsCard">
         <ul>
           <li key={0}>
             <button onClick={(event) => setCurrentTopic("")}>All posts</button>
@@ -42,9 +47,9 @@ function Homepage() {
           })}
         </ul>
       </section>
-      <section id="Homepage__list">
-        {currentTopic === "" ? <h1>All posts</h1> : <h1>{currentTopic}</h1>}
-        <label htmlFor="select-sort-by">Sort by </label>
+      <section id="SortOptionsCard">
+        {currentTopic === "" ? <h1>Popular</h1> : <h1>{currentTopic}</h1>}
+        <label htmlFor="select-sort-by">By </label>
         <select
           name="select-sort-by"
           id="select-sort-by"
@@ -84,6 +89,8 @@ function Homepage() {
             Descending
           </option>
         </select>
+      </section>
+      <section className="Container">
         <ul>
           {articlesList.map((article) => {
             return (

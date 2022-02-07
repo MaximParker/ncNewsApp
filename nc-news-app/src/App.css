@@ -1,46 +1,94 @@
+:root {
+  --backdrop: #000000;
+  --marquee: #446bad;
+  --container: #29183a;
+  --card: #402c57;
+  --text-primary: rgb(234, 246, 255);
+  --text-secondary: rgb(128, 200, 255);
+  --button: rgb(62, 91, 219);
+
+  padding: 0;
+  color: var(--text-secondary);
+  background-color: var(--backdrop);
+}
+
 nav {
-  background-color: rgb(56, 47, 47);
+  height: 50px;
+  margin-bottom: 0px;
+  background-color: var(--marquee);
 }
 
-#topics-container {
-  background-color: brown;
+ul {
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+  padding: 0;
+  list-style-type: none;
 }
 
-#Homepage__list {
-  background-color: goldenrod;
+a {
+  color: var(--text-primary);
+  text-transform: capitalize;
+}
+
+h1 {
+  color: var(--text-primary);
+  font-size: 20px;
+  text-transform: capitalize;
+  text-align: center;
+  margin: 10px;
+}
+
+h2 {
+  font-size: 20px;
+  padding-top: 0px;
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+}
+
+h3 {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+}
+
+p {
+  color: var(--text-secondary);
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+}
+
+
+
+.Container {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: var(--container);
 }
 
 .articles__card {
-  background-color: beige;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  background-color: var(--card);
+}
+
+#TopicsCard {
+  background-color: var(--container);
+}
+
+#TopicsCard ul {
+  display: flex;
+  padding: 10px;
+  list-style-type: none;
+}
+
+#SortOptionsCard {
+  text-align: center;
 }
 
 #Article {
   background-color: rgb(255, 194, 194);
   margin-left: 10px;
   margin-right: 10px;
-}
-
-#Article__article h2 {
-  background-color: rgb(255, 34, 34);
-}
-
-#Article__body {
-  background-color: rgb(255, 147, 147);
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-#Article__category {
-  background-color: rgb(255, 75, 75);
-}
-
-#Comments-container {
-  background-color: green;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.Comment {
-  background-color: lightgreen;
-  margin:10px;
 }
