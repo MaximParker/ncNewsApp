@@ -1,4 +1,5 @@
 import axios from "axios";
+const dayjs = require('dayjs')
 
 const db = axios.create({
   baseURL: "https://forum-factory.herokuapp.com/api",
@@ -48,6 +49,6 @@ export const capitalise = (input) => {
 
 export const formatDate = (input) => {
   if (input) {
-    return `${input.substring(8, 10)}-${input.substring(5, 7)}-${input.substring(0, 4)}`
+    return dayjs(input).$d.toString().substring(4,15)
   }
 }

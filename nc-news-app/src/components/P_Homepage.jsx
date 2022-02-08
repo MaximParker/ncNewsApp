@@ -96,18 +96,25 @@ function Homepage() {
             return (
               <li key={article.article_id} className="articles__card">
                 <>
+                  <span>
+                    <sub>
+                      <strong>{capitalise(article.topic)}</strong>
+                    </sub>
+                  </span>
+                  <span>
+                    <sub>{formatDate(article.created_at)}</sub>
+                  </span>
                   <Link to={`/articles/${article.article_id}`}>
                     <h2>{article.title}</h2>
                   </Link>
-                  <h3>{article.author}</h3>
-                  <p>
-                    {capitalise(article.topic)},{" "}
-                    {formatDate(article.created_at)}
-                  </p>
-                  <button>⭐ ({article.votes})</button>
+                  <button>⭐ {article.votes}</button>
                   <Link to="/">
                     <button>Comments ({article.comment_count})</button>
                   </Link>
+                  <span>
+                    <strong>{article.author}</strong>
+                  </span>
+                  <span>{formatDate(article.created_at)}</span>
                 </>
               </li>
             );

@@ -1,12 +1,10 @@
 :root {
-  --backdrop: #000000;
-  --marquee: #446bad;
-  --container: #29183a;
-  --card: #402c57;
-  --text-primary: rgb(234, 246, 255);
-  --text-secondary: rgb(128, 200, 255);
-  --button: rgb(62, 91, 219);
-
+  --backdrop: #08090c;
+  --marquee: #296dbb;
+  --container: #111822;
+  --card: #1f2842;
+  --text-primary: white;
+  --text-secondary: #c7dfff;
   padding: 0;
   color: var(--text-secondary);
   background-color: var(--backdrop);
@@ -27,21 +25,25 @@ ul {
 
 a {
   color: var(--text-primary);
-  text-transform: capitalize;
+  text-transform: block;
+  text-decoration: none;
 }
 
 h1 {
+  font-family: 'Manrope', sans-serif;
   color: var(--text-primary);
-  font-size: 20px;
+  font-size: 25px;
+  font-weight: normal;
   text-transform: capitalize;
   text-align: center;
   margin: 10px;
 }
 
 h2 {
-  font-size: 20px;
-  padding-top: 0px;
-  margin-block-start: 5px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 17px;
+  font-weight: normal;
+  margin-block-start: 0px;
   margin-block-end: 5px;
 }
 
@@ -54,10 +56,29 @@ h3 {
 
 p {
   color: var(--text-secondary);
+  font-family: 'Manrope', sans-serif;
   margin-block-start: 5px;
   margin-block-end: 5px;
 }
 
+span {
+  color: var(--text-secondary);
+  font-family: 'Manrope', sans-serif;
+  margin-right: 5px;
+  margin-bottom: 20px;
+}
+
+button {
+  color: var(--text-primary);
+  font-family: 'Manrope', sans-serif;
+  font-weight: bold;
+  height: 28px;
+  border-radius: 10px;
+  background-color: var(--marquee);
+  border: none 1px var(--marquee);
+  margin-top: 5px;
+  margin-right: 5px;
+}
 
 
 .Container {
