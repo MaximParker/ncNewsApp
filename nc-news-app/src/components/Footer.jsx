@@ -1,7 +1,3 @@
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { getAllTopics } from "../utils/api";
-
 const links = [{text: "My portfolio", URL: "https://github.com/MaximParker"}]
 
 function Footer() {
@@ -12,6 +8,7 @@ function Footer() {
           return <li key={entry.text}><a href={entry.URL}>{entry.text}</a></li>
         })}
       </ul>
+      <sub>ForumFactory © MaximParker</sub>
     </section>
   );
 }

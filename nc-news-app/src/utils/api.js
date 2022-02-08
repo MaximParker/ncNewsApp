@@ -34,7 +34,7 @@ export const getCommentsByArticleID = (id) => {
 };
 
 export const voteArticle = (id, i) => {
-  let patchObject = { inc_votes: 1 };
+  let patchObject = { inc_votes: i };
   return db.patch(`/articles/${id}?patch=votes`, patchObject).then((res) => {
     console.log("voteArticle: #"+ id, "new score:", res.data.article.votes);
     return res.data.article.votes;

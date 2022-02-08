@@ -1,15 +1,25 @@
 :root {
   --backdrop: #08090c;
-  --marquee: #296dbb;
+  --marquee: #2860a1;
+  --highlight: #539ef3;
   --container: #111822;
   --card: #1f2842;
   --card-accent: #3f4a6b;
   --text-primary: white;
   --text-secondary: #c7dfff;
  
-  padding: 0;
   color: var(--text-secondary);
   background-color: var(--backdrop);
+}
+
+#loading {
+  display: flex;
+  justify-content: center;
+  padding-top: 35vh;
+}
+
+#loading img {
+  height: 64px;
 }
 
 nav {
@@ -63,11 +73,17 @@ p {
   margin-block-end: 5px;
 }
 
+span sub {
+  outline: 1px dashed yellow;
+}
+
 span {
   color: var(--text-secondary);
   font-family: 'Manrope', sans-serif;
   margin-right: 5px;
   margin-bottom: 20px;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
 }
 
 button {
@@ -77,19 +93,25 @@ button {
   height: 28px;
   border-radius: 10px;
   background-color: var(--marquee);
-  border: none;
-  margin-top: 5px;
+  border: 1px solid var(--marquee);
   margin-right: 5px;
 }
 
+button:hover {
+  border: 1px solid var(--highlight);
+}
 
-.Container {
+button:active {
+  background-color: var(--container);
+}
+
+.container {
   margin-top: 10px;
   padding: 10px;
   background-color: var(--container);
 }
 
-.articles__card {
+.card {
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 5px;
@@ -97,22 +119,26 @@ button {
   outline: 1px solid var(--card-accent);
 }
 
-#TopicsCard {
+.card:hover {
+  background-color: rgb(48, 44, 82);
+}
+
+.topics {
+  text-align: center;
   background-color: var(--container);
 }
 
-#TopicsCard ul {
+.topics ul {
   display: flex;
-  padding: 10px;
+  padding: 5px;
   list-style-type: none;
 }
 
-#SortOptionsCard {
+#sort-options {
   text-align: center;
 }
 
-#Article {
-  background-color: rgb(255, 194, 194);
-  margin-left: 10px;
-  margin-right: 10px;
+#footer {
+  margin: 10px;
+  text-align: center;
 }

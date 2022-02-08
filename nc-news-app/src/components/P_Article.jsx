@@ -33,52 +33,44 @@ function Article() {
 
   return (
     <>
-      <section className="articles__card">
-        <>
-          <h1>{articleData.title}</h1>
-          <span>
-            <strong>{articleData.author}</strong>
-          </span>
-          <span>{formatDate(articleData.created_at)}</span>
-          <div className="articles__card">
-            <p>{articleData.body}</p>
-          </div>
-          {isLoaded ? (
+      <section className="card">
+        {isLoaded ? (
+          <>
+            <h1>{articleData.title}</h1>
+            <span>
+              By <strong>{articleData.author}</strong>, {formatDate(articleData.created_at)}
+            </span>
+            <div className="card">
+              <p>{articleData.body}</p>
+            </div>
             <VoteButtons>{articleData}</VoteButtons>
-          ) : (
-            <>
-              <button>👍</button>
-              <span>
-                <strong>--</strong>
-              </span>
-              <button>👎</button>
-            </>
-          )}
-
-          <Link to={`/articles/${articleData.article_id}#comments`}>
-            <button>Comments ({articleData.comment_count})</button>
-          </Link>
-        </>
+            <Link to={`/articles/${articleData.article_id}#comments`}>
+              <button>Comments ({articleData.comment_count})</button>
+            </Link>
+          </>
+        ) : (
+          <img src="../../LoadingSpinner.png" alt="logo" height="32px"></img>
+        )}
       </section>
-      <p className="TopicsCard">
+{/*       <p className="topics">
         See more about <strong>{articleData.topic}</strong>
-      </p>
-      <section className="Container">
+      </p> */}
+      <section className="container">
         <>
           <h1 id="comments">Comments ({articleData.comment_count})</h1>
           <ul>
             {commentsData.map((comment) => {
               return (
-                <li key={comment.comment_id} className="articles__card">
+                <li key={comment.comment_id} className="card">
                   <strong>{comment.author}</strong>
                   <p>{comment.body}</p>
                 </li>
               );
             })}
+            <BackToTop />
           </ul>
         </>
       </section>
-      <BackToTop />
       <Footer />
     </>
   );
