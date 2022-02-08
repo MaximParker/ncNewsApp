@@ -8,6 +8,7 @@ import {
 } from "../utils/api";
 import BackToTop from "./BackToTop";
 import Footer from "./Footer";
+import VoteButtons from "./VoteButtons";
 
 function Homepage() {
   const [topicsList, setTopicsList] = useState([]);
@@ -34,7 +35,7 @@ function Homepage() {
       <section id="TopicsCard">
         <ul>
           <li key={0}>
-            <button onClick={(event) => setCurrentTopic("")}>All posts</button>
+            <button onClick={(event) => setCurrentTopic("")}>Everything</button>
           </li>
           {topicsList.map((topic) => {
             return (
@@ -48,7 +49,7 @@ function Homepage() {
         </ul>
       </section>
       <section id="SortOptionsCard">
-        {currentTopic === "" ? <h1>Popular</h1> : <h1>{currentTopic}</h1>}
+        {currentTopic === "" ? <h1>Everything</h1> : <h1>{currentTopic}</h1>}
         <label htmlFor="select-sort-by">By </label>
         <select
           name="select-sort-by"
@@ -107,21 +108,20 @@ function Homepage() {
                   <Link to={`/articles/${article.article_id}`}>
                     <h2>{article.title}</h2>
                   </Link>
-                  <button>⭐ {article.votes}</button>
-                  <Link to="/">
+                  <VoteButtons>{article}</VoteButtons>
+                  <Link to={`/articles/${article.article_id}#comments`}>
                     <button>Comments ({article.comment_count})</button>
                   </Link>
                   <span>
                     <strong>{article.author}</strong>
                   </span>
-                  <span>{formatDate(article.created_at)}</span>
                 </>
               </li>
             );
           })}
+          <BackToTop />
         </ul>
       </section>
-      <BackToTop />
       <Footer />
     </>
   );
