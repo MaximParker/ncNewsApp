@@ -33,45 +33,50 @@ function Article() {
 
   return (
     <>
-      <section className="card">
-        {isLoaded ? (
-          <>
-            <h1>{articleData.title}</h1>
-            <span>
-              By <strong>{articleData.author}</strong>, {formatDate(articleData.created_at)}
-            </span>
-            <div className="card">
-              <p>{articleData.body}</p>
-            </div>
-            <VoteButtons>{articleData}</VoteButtons>
-            <Link to={`/articles/${articleData.article_id}#comments`}>
-              <button>Comments ({articleData.comment_count})</button>
-            </Link>
-          </>
-        ) : (
-          <img src="../../LoadingSpinner.png" alt="logo" height="32px"></img>
-        )}
-      </section>
-{/*       <p className="topics">
+      {isLoaded ? (
+        <>
+          <section className="card">
+            <>
+              <h1>{articleData.title}</h1>
+              <span>
+                By <strong>{articleData.author}</strong>,{" "}
+                {formatDate(articleData.created_at)}
+              </span>
+              <div className="card">
+                <p>{articleData.body}</p>
+              </div>
+              <VoteButtons>{articleData}</VoteButtons>
+              <Link to={`/articles/${articleData.article_id}#comments`}>
+                <button>Comments ({articleData.comment_count})</button>
+              </Link>
+            </>
+          </section>
+          {/*       <p className="topics">
         See more about <strong>{articleData.topic}</strong>
       </p> */}
-      <section className="container">
-        <>
-          <h1 id="comments">Comments ({articleData.comment_count})</h1>
-          <ul>
-            {commentsData.map((comment) => {
-              return (
-                <li key={comment.comment_id} className="card">
-                  <strong>{comment.author}</strong>
-                  <p>{comment.body}</p>
-                </li>
-              );
-            })}
-            <BackToTop />
-          </ul>
+          <section className="container">
+            <>
+              <h1 id="comments">Comments ({articleData.comment_count})</h1>
+              <ul>
+                {commentsData.map((comment) => {
+                  return (
+                    <li key={comment.comment_id} className="card">
+                      <strong>{comment.author}</strong>
+                      <p>{comment.body}</p>
+                    </li>
+                  );
+                })}
+                <BackToTop />
+              </ul>
+            </>
+          </section>
+          <Footer />
         </>
-      </section>
-      <Footer />
+      ) : (
+        <div id="loading">
+          <img src="../../LoadingSpinner.png" alt="logo" height="32px"></img>
+        </div>
+      )}
     </>
   );
 }
