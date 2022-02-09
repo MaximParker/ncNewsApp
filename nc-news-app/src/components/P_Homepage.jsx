@@ -21,7 +21,6 @@ function Homepage() {
 
   useEffect(() => {
     getAllTopics().then((result) => {
-      console.log(result, "<<<<<");
       setTopicsList(result);
     });
   }, []);

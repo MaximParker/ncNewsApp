@@ -1,17 +1,27 @@
-import { useState } from "react";
-import { voteArticle } from "../utils/api";
+import { useState, useContext } from "react";
+import { UserContext } from "../contexts/User";
+import { postComment } from "../utils/api";
 
 const CommentBox = (props) => {
+  const { loggedInUsername } = useContext(UserContext);
   const [inputText, setinputText] = useState("");
-  const handleInput = (input) => {
+
+  const handleChange = (input) => {
     setinputText(input);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e)
+    setinputText("");
+    return postComment(
+      props.article.article_id,
+      loggedInUsername,
+      inputText
+    ).then((result) => {
+      props.setCommentsData([ {beans: "beans"}, ...props.commentsData])
+      console.log(props.commentsData)
+    });
   };
-
-  console.log();
 
   return (
     <div className="card">
@@ -20,13 +30,20 @@ const CommentBox = (props) => {
           handleSubmit(event);
         }}
       >
+        <img
+          id="nav__user-icon"
+          src="../../user_icon.png"
+          alt="logo"
+          height="30px"
+        ></img>
         <input
           type="text"
           name="comment"
           placeholder="Add comment..."
           onChange={(event) => {
-            handleInput(event.target.value);
+            handleChange(event.target.value);
           }}
+          value={inputText}
           required
         />
         <button type="submit">Add comment</button>

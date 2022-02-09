@@ -1,9 +1,11 @@
 import { Link, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../contexts/User";
 import {
   getArticleByID,
   getCommentsByArticleID,
   formatDate,
+  unique,
 } from "../utils/api";
 import BackToTop from "./BackToTop";
 import Footer from "./Footer";
@@ -11,6 +13,7 @@ import VoteButtons from "./VoteButtons";
 import CommentBox from "./CommentBox";
 
 function Article() {
+  const { loggedInUsername } = useContext(UserContext);
   const { article_id } = useParams();
   const [articleData, setArticleData] = useState({});
   const [commentsData, setCommentsData] = useState([]);
@@ -23,15 +26,19 @@ function Article() {
         setArticleData(result);
       })
       .then(() => {
-        return getCommentsByArticleID(1);
+        return getCommentsByArticleID(article_id);
       })
       .then((result) => {
         setCommentsData(result);
+        let commentAuthors = result.map((comment) => {
+          return comment.author;
+        });
+        setUsersData(commentAuthors.filter(unique));
       })
       .then(() => {
         setLoaded(true);
       });
-  }, [article_id]);
+  }, [article_id, commentsData]);
 
   return (
     <>
@@ -67,11 +74,37 @@ function Article() {
               <ul>
                 {commentsData.map((comment) => {
                   return (
-                    <li key={comment.comment_id} className="card">
+                    <li
+                      key={comment.comment_id + comment.created_at}
+                      className="card"
+                    >
                       <span className="span__small">
                         <strong>{comment.author}</strong>{" "}
                         {formatDate(comment.created_at)}
                       </span>
+                      {/* {comment.author === loggedInUsername ? (
+                        <span className="span__small">
+                          (
+                          <u
+                            onClick={(event) => {
+                              console.log("DELETE", comment.comment_id);
+                            }}
+                          >
+                            Delete
+                          </u>
+                          ) (
+                          <u
+                            onClick={(event) => {
+                              console.log("EDIT", comment.comment_id);
+                            }}
+                          >
+                            Edit comment
+                          </u>
+                          )
+                        </span>
+                      ) : (
+                        <></>
+                      )} */}
                       <p>{comment.body}</p>
                     </li>
                   );

@@ -29,16 +29,31 @@ export const getArticleByID = (id) => {
 
 export const getCommentsByArticleID = (id) => {
   return db.get(`/articles/${id}/comments`).then((res) => {
-    return res.data.comments;
+    return res.data.comments.sort(compare);
   });
 };
 
 export const voteArticle = (id, i) => {
   let patchObject = { inc_votes: i };
   return db.patch(`/articles/${id}?patch=votes`, patchObject).then((res) => {
-    console.log("voteArticle: #"+ id, "new score:", res.data.article.votes);
+    console.log("voteArticle: #" + id, "new score:", res.data.article.votes);
     return res.data.article.votes;
   });
+};
+
+export const postComment = (article_id, username, body) => {
+  console.log(`postComment: ${article_id}, ${username}, ${body}`);
+  let postObject = { username, body };
+
+  return db
+    .post(`/articles/${article_id}/comments`, postObject)
+    .then((res) => {
+      console.log("postComment on", article_id, "::", res.data.comment);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 };
 
 export const capitalise = (input) => {
@@ -53,3 +68,20 @@ export const formatDate = (input) => {
     return dayjs(input).$d.toString().substring(4, 15);
   }
 };
+
+export const unique = (value, index, self) => {
+  return self.indexOf(value) === index;
+};
+
+export const compare = ( a, b ) => {
+    if ( a.created_at > b.created_at ){
+      return -1;
+    }
+    if ( a.created_at < b.created_at ){
+      return 1;
+    }
+    if ( a.created_at === b.created_at && a.comment_id > b.comment_id){
+      return -1;
+    }
+    return 0;
+}
