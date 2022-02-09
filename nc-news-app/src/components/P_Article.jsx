@@ -8,11 +8,13 @@ import {
 import BackToTop from "./BackToTop";
 import Footer from "./Footer";
 import VoteButtons from "./VoteButtons";
+import CommentBox from "./CommentBox";
 
 function Article() {
   const { article_id } = useParams();
   const [articleData, setArticleData] = useState({});
   const [commentsData, setCommentsData] = useState([]);
+  const [usersData, setUsersData] = useState([]);
   const [isLoaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ function Article() {
     <>
       {isLoaded ? (
         <>
-          <section className="card">
+          <section className="container">
             <>
               <h1>{articleData.title}</h1>
               <span>
@@ -57,11 +59,19 @@ function Article() {
           <section className="container">
             <>
               <h1 id="comments">Comments ({articleData.comment_count})</h1>
+              <CommentBox
+                article={articleData}
+                commentsData={commentsData}
+                setCommentsData={setCommentsData}
+              />
               <ul>
                 {commentsData.map((comment) => {
                   return (
                     <li key={comment.comment_id} className="card">
-                      <strong>{comment.author}</strong>
+                      <span className="span__small">
+                        <strong>{comment.author}</strong>{" "}
+                        {formatDate(comment.created_at)}
+                      </span>
                       <p>{comment.body}</p>
                     </li>
                   );

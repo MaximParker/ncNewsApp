@@ -113,11 +113,9 @@ function Homepage() {
                 return (
                   <li key={article.article_id} className="card">
                     <>
-                      <span>
-                        <sub>
-                          <strong>{capitalise(article.topic)}</strong>{" "}
-                          {formatDate(article.created_at)}
-                        </sub>
+                      <span className="span__small">
+                        <strong>{capitalise(article.topic)}</strong>{" "}
+                        {formatDate(article.created_at)}
                       </span>
                       <Link to={`/articles/${article.article_id}`}>
                         <h2>{article.title}</h2>
