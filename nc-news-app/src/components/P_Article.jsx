@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../contexts/User";
 import {
@@ -18,11 +18,13 @@ import Comment from "./Comment";
 function Article() {
   const { loggedInUsername } = useContext(UserContext);
   const { article_id } = useParams();
+  const navigate = useNavigate();
   const [articleData, setArticleData] = useState({});
   const [commentsData, setCommentsData] = useState([]);
   const [isEditingCommentID, setEditingCommentID] = useState([]);
   const [usersData, setUsersData] = useState([]);
   const [isLoaded, setLoaded] = useState(false);
+  
 
   useEffect(() => {
     getArticleByID(article_id)
@@ -41,7 +43,14 @@ function Article() {
       })
       .then(() => {
         setLoaded(true);
-      });
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          navigate('/404')
+        } else {
+          navigate('/500')
+        }
+      })
   }, [article_id, commentsData, isEditingCommentID]);
 
   return (

@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/User";
 import { formatDate, editComment, deleteComment } from "../utils/api";
 
@@ -13,7 +14,7 @@ const Comment = (props) => {
   }, [isEditing]);
 
   const handleChange = (input) => {
-    setinputText(input);
+    setinputText(input)
   };
 
   const handleSubmit = (e) => {

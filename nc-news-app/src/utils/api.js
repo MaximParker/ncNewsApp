@@ -48,9 +48,6 @@ export const postComment = (article_id, username, body) => {
     .then((res) => {
       return res.data;
     })
-    .catch((err) => {
-      console.log(err);
-    });
 };
 
 export const editComment = (comment_id, username, inputText) => {
@@ -75,11 +72,8 @@ export const editComment = (comment_id, username, inputText) => {
 };
 
 export const deleteComment = (comment_id) => {
-  console.log("COMMENT SENT FOR DELETION:", comment_id);
-  return db.delete(`/comments/${comment_id}`).catch((err) => {
-    console.log(err);
-  });
-};
+  return db.delete(`/comments/${comment_id}`)
+}
 
 export const capitalise = (input) => {
   if (input) {
