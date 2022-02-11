@@ -22,8 +22,6 @@ function Article() {
     { title, author, created_at, body, votes, comment_count, topic },
     setArticleData,
   ] = useState({});
-  const [commentsData, setCommentsData] = useState([]);
-  const [usersData, setUsersData] = useState([]);
   const [isLoaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -60,16 +58,19 @@ function Article() {
               <div className="card">
                 <p>{body}</p>
               </div>
-              <VoteButtons votes={votes} article_id={article_id}></VoteButtons>
+              <VoteButtons>{{ article_id, votes }}</VoteButtons>
               <Link to={`/articles/${article_id}#comments`}>
                 <button>Comments ({comment_count})</button>
               </Link>
             </>
           </section>
           <p className="topics">
-            See more about <strong>{topic}</strong>
+            See more about{" "}
+            <Link to={`/t/${topic}`}>
+              <strong>{topic}</strong>
+            </Link>
           </p>
-          <CommentsList comment_count={comment_count} article_id={article_id} />
+          <CommentsList>{{ comment_count, article_id }}</CommentsList>
           <Footer />
         </>
       ) : (

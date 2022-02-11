@@ -8,7 +8,7 @@
   --text-primary: white;
   --text-secondary: #c7dfff;
   --danger: #c72626;
- 
+
   color: var(--text-secondary);
   background-color: var(--backdrop);
 }
@@ -59,7 +59,7 @@ a {
 }
 
 h1 {
-  font-family: 'Manrope', sans-serif;
+  font-family: "Manrope", sans-serif;
   color: var(--text-primary);
   font-size: 25px;
   font-weight: normal;
@@ -69,7 +69,7 @@ h1 {
 }
 
 h2 {
-  font-family: 'Manrope', sans-serif;
+  font-family: "Manrope", sans-serif;
   font-size: 17px;
   font-weight: normal;
   margin-block-start: 0px;
@@ -85,7 +85,7 @@ h3 {
 
 p {
   color: var(--text-primary);
-  font-family: 'Manrope', sans-serif;
+  font-family: "Manrope", sans-serif;
   margin-block-start: 0px;
   margin-block-end: 0px;
 }
@@ -93,7 +93,7 @@ p {
 span {
   text-align: center;
   color: var(--text-secondary);
-  font-family: 'Manrope', sans-serif;
+  font-family: "Manrope", sans-serif;
   margin-right: 5px;
 }
 
@@ -103,7 +103,7 @@ span {
 
 button {
   color: var(--text-primary);
-  font-family: 'Manrope', sans-serif;
+  font-family: "Manrope", sans-serif;
   font-weight: bold;
   height: 28px;
   border-radius: 10px;
@@ -160,4 +160,10 @@ button:active {
 #footer {
   margin: 10px;
   text-align: center;
+}
+
+.Loading {
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }

@@ -9,7 +9,7 @@ function Nav() {
       <Link to="/">
         <img src="../../logo512.png" alt="logo" height="64px"></img>
       </Link>
-      <div className="nav__grid">{/* <input disabled></input> */}</div>
+      <div className="nav__grid"></div>
       <div className="nav__grid">
         <span>{loggedInUsername}</span>
       </div>

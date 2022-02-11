@@ -1,12 +1,16 @@
 import { useState, useContext, useEffect } from "react";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { UserContext } from "../contexts/User";
 import { getCommentsByArticleID } from "../utils/api";
 import React from "react";
 import BackToTop from "./BackToTop";
 import CommentInput from "./CommentInput";
 import Comment from "./Comment";
+import Loading from "./Loading";
 
-const CommentsList = ({ article_id, comment_count }) => {
+const CommentsList = (props) => {
+  const { article_id } = useParams();
+  const { comment_count } = props.children;
   const [commentCounter, setCommentCounter] = useState(comment_count);
   const [commentsData, setCommentsData] = useState([]);
   const [isLoaded, setLoaded] = useState(false);
@@ -18,42 +22,42 @@ const CommentsList = ({ article_id, comment_count }) => {
         setCommentsData(result);
       })
       .then(() => {
+        console.log(commentsData);
         setLoaded(true);
       });
   }, [commentCounter]);
 
   return (
     <section className="container">
-      {isLoaded ? (
-        <>
-          <h1 id="comments">Comments ({comment_count})</h1>
-          <CommentInput
-            article_id={article_id}
-            setCommentsData={setCommentsData}
-            setCommentCounter={setCommentCounter}
-          />
-          <ul>
-            {commentsData.map(({ comment_id, created_at, body, author }) => {
+      <Loading isLoaded={isLoaded} />
+      <>
+        <h1 id="comments">Comments ({comment_count})</h1>
+        <CommentInput>
+          {{ article_id, setCommentsData, setCommentCounter }}
+        </CommentInput>
+        <ul>
+          {commentsData.map(
+            ({body, comment_id, created_at, author, article_id}) => {
               return (
                 <li key={comment_id + created_at}>
-                  <Comment
-                    body={body}
-                    comment_id={comment_id}
-                    created_at={created_at}
-                    author={author}
-                    article_id={article_id}
-                    setCommentsData={setCommentsData}
-                    setCommentCounter={setCommentCounter}
-                  ></Comment>
+                  <Comment>
+                    {{
+                      body,
+                      comment_id,
+                      created_at,
+                      author,
+                      article_id,
+                      setCommentsData,
+                      setCommentCounter,
+                    }}
+                  </Comment>
                 </li>
               );
-            })}
-            <BackToTop />
-          </ul>
-        </>
-      ) : (
-        <></>
-      )}
+            }
+          )}
+          <BackToTop />
+        </ul>
+      </>
     </section>
   );
 };

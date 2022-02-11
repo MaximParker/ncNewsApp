@@ -3,6 +3,7 @@ import { UserContext } from "../contexts/User";
 import { postComment } from "../utils/api";
 
 const CommentInput = (props) => {
+  const {article_id, setCommentsData, setCommentCounter} = props.children;
   const { loggedInUsername } = useContext(UserContext);
   const [inputText, setinputText] = useState("");
 
@@ -14,12 +15,12 @@ const CommentInput = (props) => {
     e.preventDefault();
     setinputText("");
     return postComment(
-      props.article_id,
+      article_id,
       loggedInUsername,
       inputText
     ).then((result) => {
-      props.setCommentsData((current) => {return [result, ...current]});
-      props.setCommentCounter((current) => {return current+1});
+      setCommentsData((current) => {return [result, ...current]});
+      setCommentCounter((current) => {return current+1});
     });
   };
 

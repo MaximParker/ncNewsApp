@@ -3,7 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/User";
 import { formatDate, editComment, deleteComment } from "../utils/api";
 
-const Comment = ({body, created_at, author, comment_id, setCommentCounter, setCommentsData}) => {
+const Comment = (props) => {
+  const {body,
+    comment_id,
+    created_at,
+    author,
+    article_id,
+    setCommentsData,
+    setCommentCounter} = props.children
   const { loggedInUsername } = useContext(UserContext);
   const [isDisplayingDeleteBox, setDisplayDeleteBox] = useState(false);
   const [isEditing, setEditingComment] = useState(false);

@@ -11,7 +11,7 @@ export const getAllTopics = () => {
   });
 };
 
-export const getArticlesByTopic = (topic, sort_by, order) => {
+export const getArticlesByTopic = (topic="*", sort_by, order) => {
   return db
     .get(`/articles`, {
       params: { topic, sort_by, order },

@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { voteArticle } from "../utils/api";
 
-const VoteButtons = ({ votes, article_id }) => {
+const VoteButtons = (props) => {
+  const {article_id, votes} = props.children;
   const [voted, setVoted] = useState(false);
-  const [Score, setScore] = useState(votes);
+  const [score, setScore] = useState(votes);
+
   const handleClick = (id, i) => {
     setVoted(true)
-    setScore(Score + i);
+    setScore(score + i);
     voteArticle(id, i).catch(() => {
-      setScore(Score);
+      setScore(score);
     });
   };
 
@@ -22,7 +24,7 @@ const VoteButtons = ({ votes, article_id }) => {
           👍
         </button>
         <span>
-          <strong>{Score}</strong>
+          <strong>{score}</strong>
         </span>
         <button
           disabled
@@ -40,7 +42,7 @@ const VoteButtons = ({ votes, article_id }) => {
             👍
           </button>
           <span>
-            <strong>{Score}</strong>
+            <strong>{score}</strong>
           </span>
           <button
             onClick={() => {
