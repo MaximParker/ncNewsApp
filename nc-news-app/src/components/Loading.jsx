@@ -2,7 +2,7 @@ function Loading({ isLoaded }) {
   return (
     <>
       {isLoaded ? (
-        <p>loaded :)</p>
+        <></>
       ) : (
         <img
           className="Loading"

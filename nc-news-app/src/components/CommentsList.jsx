@@ -1,6 +1,5 @@
-import { useState, useContext, useEffect } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
-import { UserContext } from "../contexts/User";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { getCommentsByArticleID } from "../utils/api";
 import React from "react";
 import BackToTop from "./BackToTop";
@@ -22,7 +21,6 @@ const CommentsList = (props) => {
         setCommentsData(result);
       })
       .then(() => {
-        console.log(commentsData);
         setLoaded(true);
       });
   }, [commentCounter]);
@@ -33,11 +31,11 @@ const CommentsList = (props) => {
       <>
         <h1 id="comments">Comments ({comment_count})</h1>
         <CommentInput>
-          {{ article_id, setCommentsData, setCommentCounter }}
+          {{ setCommentsData, setCommentCounter }}
         </CommentInput>
         <ul>
           {commentsData.map(
-            ({body, comment_id, created_at, author, article_id}) => {
+            ({body, comment_id, created_at, author}) => {
               return (
                 <li key={comment_id + created_at}>
                   <Comment>
@@ -46,7 +44,6 @@ const CommentsList = (props) => {
                       comment_id,
                       created_at,
                       author,
-                      article_id,
                       setCommentsData,
                       setCommentCounter,
                     }}

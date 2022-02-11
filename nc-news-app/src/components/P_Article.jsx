@@ -1,18 +1,13 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import {
   getArticleByID,
-  getCommentsByArticleID,
   formatDate,
-  unique,
 } from "../utils/api";
-import BackToTop from "./BackToTop";
 import Footer from "./Footer";
 import VoteButtons from "./VoteButtons";
-import CommentInput from "./CommentInput";
-import Comment from "./Comment";
 import CommentsList from "./CommentsList";
 
 function Article() {
@@ -25,7 +20,6 @@ function Article() {
   const [isLoaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    console.log("LOADING PAGE!");
     getArticleByID(article_id)
       .then((result) => {
         setArticleData(result);
@@ -65,9 +59,8 @@ function Article() {
             </>
           </section>
           <p className="topics">
-            See more about{" "}
             <Link to={`/t/${topic}`}>
-              <strong>{topic}</strong>
+              <strong>More about {topic}</strong>
             </Link>
           </p>
           <CommentsList>{{ comment_count, article_id }}</CommentsList>

@@ -1,9 +1,11 @@
 import { useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 import { UserContext } from "../contexts/User";
 import { postComment } from "../utils/api";
 
 const CommentInput = (props) => {
-  const {article_id, setCommentsData, setCommentCounter} = props.children;
+  const { article_id } = useParams();
+  const { setCommentsData, setCommentCounter } = props.children;
   const { loggedInUsername } = useContext(UserContext);
   const [inputText, setinputText] = useState("");
 
@@ -14,14 +16,16 @@ const CommentInput = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setinputText("");
-    return postComment(
-      article_id,
-      loggedInUsername,
-      inputText
-    ).then((result) => {
-      setCommentsData((current) => {return [result, ...current]});
-      setCommentCounter((current) => {return current+1});
-    });
+    return postComment(article_id, loggedInUsername, inputText).then(
+      (result) => {
+        setCommentsData((current) => {
+          return [result, ...current];
+        });
+        setCommentCounter((current) => {
+          return current + 1;
+        });
+      }
+    );
   };
 
   return (
@@ -31,12 +35,6 @@ const CommentInput = (props) => {
           handleSubmit(event);
         }}
       >
-        <img
-          id="nav__user-icon"
-          src="../../user_icon.png"
-          alt="logo"
-          height="30px"
-        ></img>
         <textarea
           type="text"
           name="comment"

@@ -125,6 +125,13 @@ button:active {
   border: 1px solid var(--danger);
 }
 
+textarea {
+  border-radius: 5px;
+  resize:none;
+  height: 30px;
+  width: 100%;
+}
+
 .container {
   margin-top: 10px;
   padding: 10px;

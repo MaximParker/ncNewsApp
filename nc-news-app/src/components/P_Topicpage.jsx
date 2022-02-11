@@ -27,6 +27,7 @@ function Topicpage() {
   const [orderBy, setOrderBy] = useState("desc");
 
   useEffect(() => {
+    console.log("LOADING PAGE")
     getAllTopics()
       .then((result) => {
         setTopicsList(result);
@@ -45,10 +46,16 @@ function Topicpage() {
     getArticlesByTopic(topic, sortBy, orderBy)
       .then((result) => {
         setArticlesList(result);
-        console.log(result);
       })
       .then(() => {
         setLoaded(true);
+      })
+      .catch(({ response }) => {
+        if (response.status === 404) {
+          navigate("/404");
+        } else {
+          navigate("/500");
+        }
       });
   }, [topic, sortBy, orderBy]);
 

@@ -50,27 +50,6 @@ export const postComment = (article_id, username, body) => {
     })
 };
 
-export const editComment = (comment_id, username, inputText) => {
-  console.log(
-    "**STOP NOTICE** \neditComment cannot fulfill the patch request because the database does not currently support this action. \nRequest details:",
-    {
-      "id to be edited": comment_id,
-      "username to validate": username,
-      "new body text": inputText,
-    }
-  );
-
-  /* return db
-    .patch(`/comments/${comment_id}`, patchObject)
-    .then((res) => {
-      console.log("postComment on", article_id, "::", res.data.comment);
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err)
-    }) */
-};
-
 export const deleteComment = (comment_id) => {
   return db.delete(`/comments/${comment_id}`)
 }

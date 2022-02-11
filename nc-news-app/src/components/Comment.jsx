@@ -1,16 +1,16 @@
 import { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/User";
-import { formatDate, editComment, deleteComment } from "../utils/api";
+import { formatDate, deleteComment } from "../utils/api";
 
 const Comment = (props) => {
-  const {body,
+  const {
+    body,
     comment_id,
     created_at,
     author,
-    article_id,
     setCommentsData,
-    setCommentCounter} = props.children
+    setCommentCounter,
+  } = props.children;
   const { loggedInUsername } = useContext(UserContext);
   const [isDisplayingDeleteBox, setDisplayDeleteBox] = useState(false);
   const [isEditing, setEditingComment] = useState(false);
@@ -18,7 +18,7 @@ const Comment = (props) => {
 
   useEffect(() => {
     setinputText(body);
-  }, [isEditing]);
+  }, [body]);
 
   const handleChange = (input) => {
     setinputText(input);
@@ -76,11 +76,12 @@ const Comment = (props) => {
             onClick={() => {
               setDisplayDeleteBox(false);
               deleteComment(comment_id);
-              setCommentCounter((current) => {
-                return current - 1;
-              });
               setCommentsData((current) => {
                 return current.filter(entry => entry.comment_id !== comment_id)
+              }).then(() => {
+                setCommentCounter((current) => {
+                  return current - 1;
+                });
               });
             }}
           >
