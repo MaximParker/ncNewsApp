@@ -1,3 +1,5 @@
+import React from 'react';
+import { Helmet } from 'react-helmet';
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -37,6 +39,7 @@ function Homepage() {
 
   return (
     <>
+      <Helmet><title>NCN — News for you</title></Helmet>
       {isLoaded ? (
         <>
           <section className="topics">

@@ -36,24 +36,49 @@ export const getCommentsByArticleID = (id) => {
 export const voteArticle = (id, i) => {
   let patchObject = { inc_votes: i };
   return db.patch(`/articles/${id}?patch=votes`, patchObject).then((res) => {
-    console.log("voteArticle: #" + id, "new score:", res.data.article.votes);
     return res.data.article.votes;
   });
 };
 
 export const postComment = (article_id, username, body) => {
-  console.log(`postComment: ${article_id}, ${username}, ${body}`);
   let postObject = { username, body };
 
   return db
     .post(`/articles/${article_id}/comments`, postObject)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const editComment = (comment_id, username, inputText) => {
+  console.log(
+    "**STOP NOTICE** \neditComment cannot fulfill the patch request because the database does not currently support this action. \nRequest details:",
+    {
+      "id to be edited": comment_id,
+      "username to validate": username,
+      "new body text": inputText,
+    }
+  );
+
+  /* return db
+    .patch(`/comments/${comment_id}`, patchObject)
     .then((res) => {
       console.log("postComment on", article_id, "::", res.data.comment);
       return res.data;
     })
     .catch((err) => {
       console.log(err)
-    })
+    }) */
+};
+
+export const deleteComment = (comment_id) => {
+  console.log("COMMENT SENT FOR DELETION:", comment_id);
+  return db.delete(`/comments/${comment_id}`).catch((err) => {
+    console.log(err);
+  });
 };
 
 export const capitalise = (input) => {
@@ -73,15 +98,15 @@ export const unique = (value, index, self) => {
   return self.indexOf(value) === index;
 };
 
-export const compare = ( a, b ) => {
-    if ( a.created_at > b.created_at ){
-      return -1;
-    }
-    if ( a.created_at < b.created_at ){
-      return 1;
-    }
-    if ( a.created_at === b.created_at && a.comment_id > b.comment_id){
-      return -1;
-    }
-    return 0;
-}
+export const compare = (a, b) => {
+  if (a.created_at > b.created_at) {
+    return -1;
+  }
+  if (a.created_at < b.created_at) {
+    return 1;
+  }
+  if (a.created_at === b.created_at && a.comment_id > b.comment_id) {
+    return -1;
+  }
+  return 0;
+};

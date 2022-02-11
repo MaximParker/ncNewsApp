@@ -1,3 +1,5 @@
+import React from "react";
+import { Helmet } from "react-helmet";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../contexts/User";
@@ -10,13 +12,15 @@ import {
 import BackToTop from "./BackToTop";
 import Footer from "./Footer";
 import VoteButtons from "./VoteButtons";
-import CommentBox from "./CommentBox";
+import CommentInput from "./CommentInput";
+import Comment from "./Comment";
 
 function Article() {
   const { loggedInUsername } = useContext(UserContext);
   const { article_id } = useParams();
   const [articleData, setArticleData] = useState({});
   const [commentsData, setCommentsData] = useState([]);
+  const [isEditingCommentID, setEditingCommentID] = useState([]);
   const [usersData, setUsersData] = useState([]);
   const [isLoaded, setLoaded] = useState(false);
 
@@ -38,10 +42,13 @@ function Article() {
       .then(() => {
         setLoaded(true);
       });
-  }, [article_id, commentsData]);
+  }, [article_id, commentsData, isEditingCommentID]);
 
   return (
     <>
+      <Helmet>
+        <title>{articleData.title}</title>
+      </Helmet>
       {isLoaded ? (
         <>
           <section className="container">
@@ -66,7 +73,7 @@ function Article() {
           <section className="container">
             <>
               <h1 id="comments">Comments ({articleData.comment_count})</h1>
-              <CommentBox
+              <CommentInput
                 article={articleData}
                 commentsData={commentsData}
                 setCommentsData={setCommentsData}
@@ -74,38 +81,11 @@ function Article() {
               <ul>
                 {commentsData.map((comment) => {
                   return (
-                    <li
-                      key={comment.comment_id + comment.created_at}
-                      className="card"
-                    >
-                      <span className="span__small">
-                        <strong>{comment.author}</strong>{" "}
-                        {formatDate(comment.created_at)}
-                      </span>
-                      {/* {comment.author === loggedInUsername ? (
-                        <span className="span__small">
-                          (
-                          <u
-                            onClick={(event) => {
-                              console.log("DELETE", comment.comment_id);
-                            }}
-                          >
-                            Delete
-                          </u>
-                          ) (
-                          <u
-                            onClick={(event) => {
-                              console.log("EDIT", comment.comment_id);
-                            }}
-                          >
-                            Edit comment
-                          </u>
-                          )
-                        </span>
-                      ) : (
-                        <></>
-                      )} */}
-                      <p>{comment.body}</p>
+                    <li key={comment.comment_id + comment.created_at}>
+                      <Comment
+                        comment={comment}
+                        article_id={article_id}
+                      ></Comment>
                     </li>
                   );
                 })}

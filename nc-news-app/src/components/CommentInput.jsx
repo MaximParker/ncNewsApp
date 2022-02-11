@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { UserContext } from "../contexts/User";
 import { postComment } from "../utils/api";
 
-const CommentBox = (props) => {
+const CommentInput = (props) => {
   const { loggedInUsername } = useContext(UserContext);
   const [inputText, setinputText] = useState("");
 
@@ -18,8 +18,7 @@ const CommentBox = (props) => {
       loggedInUsername,
       inputText
     ).then((result) => {
-      props.setCommentsData([ {beans: "beans"}, ...props.commentsData])
-      console.log(props.commentsData)
+      props.setCommentsData([result, ...props.commentsData]);
     });
   };
 
@@ -36,7 +35,7 @@ const CommentBox = (props) => {
           alt="logo"
           height="30px"
         ></img>
-        <input
+        <textarea
           type="text"
           name="comment"
           placeholder="Add comment..."
@@ -52,4 +51,4 @@ const CommentBox = (props) => {
   );
 };
 
-export default CommentBox;
+export default CommentInput;

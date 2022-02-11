@@ -7,6 +7,7 @@
   --card-accent: #3f4a6b;
   --text-primary: white;
   --text-secondary: #c7dfff;
+  --danger: #c72626;
  
   color: var(--text-secondary);
   background-color: var(--backdrop);
@@ -117,6 +118,11 @@ button:hover {
 
 button:active {
   background-color: var(--container);
+}
+
+.button__danger {
+  background-color: var(--danger);
+  border: 1px solid var(--danger);
 }
 
 .container {
