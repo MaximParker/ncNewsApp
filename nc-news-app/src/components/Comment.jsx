@@ -3,31 +3,30 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/User";
 import { formatDate, editComment, deleteComment } from "../utils/api";
 
-const Comment = (props) => {
+const Comment = ({body, created_at, author, comment_id, setCommentCounter, setCommentsData}) => {
   const { loggedInUsername } = useContext(UserContext);
   const [isDisplayingDeleteBox, setDisplayDeleteBox] = useState(false);
   const [isEditing, setEditingComment] = useState(false);
   const [inputText, setinputText] = useState("");
 
   useEffect(() => {
-    setinputText(props.comment.body);
+    setinputText(body);
   }, [isEditing]);
 
   const handleChange = (input) => {
-    setinputText(input)
+    setinputText(input);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // return editComment(props.comment.comment_id, loggedInUsername, inputText);
   };
 
   return (
     <div className="card">
       <span className="span__small">
-        <strong>{props.comment.author}</strong> {formatDate(props.created_at)}
+        <strong>{author}</strong> {formatDate(created_at)}
       </span>
-      {props.comment.author === loggedInUsername ? (
+      {author === loggedInUsername ? (
         <span className="span__small">
           (
           <u
@@ -62,14 +61,20 @@ const Comment = (props) => {
       ) : (
         <></>
       )}
-      <p>{props.comment.body}</p>
+      <p>{body}</p>
       {isDisplayingDeleteBox ? (
         <div className="card">
           <button
             className="button__danger"
             onClick={() => {
               setDisplayDeleteBox(false);
-              deleteComment(props.comment.comment_id);
+              deleteComment(comment_id);
+              setCommentCounter((current) => {
+                return current - 1;
+              });
+              setCommentsData((current) => {
+                return current.filter(entry => entry.comment_id !== comment_id)
+              });
             }}
           >
             Delete

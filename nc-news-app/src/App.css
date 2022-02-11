@@ -145,7 +145,6 @@ button:active {
 
 .topics {
   text-align: center;
-  background-color: var(--container);
 }
 
 .topics ul {

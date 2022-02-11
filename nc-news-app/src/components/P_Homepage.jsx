@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {
   capitalise,
   formatDate,
@@ -13,6 +13,8 @@ import Footer from "./Footer";
 import VoteButtons from "./VoteButtons";
 
 function Homepage() {
+  const {topic} = useParams();
+  console.log(topic)
   const [isLoaded, setLoaded] = useState(false);
   const [topicsList, setTopicsList] = useState([]);
   const [articlesList, setArticlesList] = useState([]);
@@ -28,6 +30,7 @@ function Homepage() {
   }, []);
 
   useEffect(() => {
+    setLoaded(false)
     getArticlesByTopic(currentTopic.slug, sortBy, orderBy)
       .then((result) => {
         setArticlesList(result);

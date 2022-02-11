@@ -14,11 +14,12 @@ const CommentInput = (props) => {
     e.preventDefault();
     setinputText("");
     return postComment(
-      props.article.article_id,
+      props.article_id,
       loggedInUsername,
       inputText
     ).then((result) => {
-      props.setCommentsData([result, ...props.commentsData]);
+      props.setCommentsData((current) => {return [result, ...current]});
+      props.setCommentCounter((current) => {return current+1});
     });
   };
 
