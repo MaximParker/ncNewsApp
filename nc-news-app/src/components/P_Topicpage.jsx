@@ -27,7 +27,7 @@ function Topicpage() {
   const [orderBy, setOrderBy] = useState("desc");
 
   useEffect(() => {
-    console.log("LOADING PAGE")
+    console.log("LOADING PAGE");
     getAllTopics()
       .then((result) => {
         setTopicsList(result);
@@ -147,7 +147,9 @@ function Topicpage() {
                       <Link to={`/articles/${article_id}`}>
                         <h2>{title}</h2>
                       </Link>
-                      <VoteButtons>{{ article_id, votes }}</VoteButtons>
+                      <VoteButtons>
+                        {{ targetType: "article", targetID: article_id, votes }}
+                      </VoteButtons>
                       <Link to={`/articles/${article_id}#comments`}>
                         <button>Comments ({comment_count})</button>
                       </Link>

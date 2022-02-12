@@ -11,7 +11,7 @@ export const getAllTopics = () => {
   });
 };
 
-export const getArticlesByTopic = (topic="*", sort_by, order) => {
+export const getArticlesByTopic = (topic = "*", sort_by, order) => {
   return db
     .get(`/articles`, {
       params: { topic, sort_by, order },
@@ -33,9 +33,15 @@ export const getCommentsByArticleID = (id) => {
   });
 };
 
-export const voteArticle = (id, i) => {
-  let patchObject = { inc_votes: i };
-  return db.patch(`/articles/${id}?patch=votes`, patchObject).then((res) => {
+export const sendVotes = (targetType, id, increment) => {
+  let patchObject = { inc_votes: increment };
+  let targetPath = "";
+  if (targetType === "comment") {
+    targetPath = `/comments/${id}`;
+  } else if (targetType === "article") {
+    targetPath = `/articles/${id}?patch=votes`;
+  }
+  return db.patch(targetPath, patchObject).then((res) => {
     return res.data.article.votes;
   });
 };
@@ -43,16 +49,14 @@ export const voteArticle = (id, i) => {
 export const postComment = (article_id, username, body) => {
   let postObject = { username, body };
 
-  return db
-    .post(`/articles/${article_id}/comments`, postObject)
-    .then((res) => {
-      return res.data;
-    })
+  return db.post(`/articles/${article_id}/comments`, postObject).then((res) => {
+    return res.data;
+  });
 };
 
 export const deleteComment = (comment_id) => {
-  return db.delete(`/comments/${comment_id}`)
-}
+  return db.delete(`/comments/${comment_id}`);
+};
 
 export const capitalise = (input) => {
   if (input) {

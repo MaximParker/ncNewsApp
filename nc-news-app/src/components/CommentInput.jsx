@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { UserContext } from "../contexts/User";
 import { postComment } from "../utils/api";
 
-const CommentInput = (props) => {
+const CommentInput = ({children}) => {
   const { article_id } = useParams();
-  const { setCommentsData, setCommentCounter } = props.children;
+  const { setFreshCommentsData, setCommentCounter, setLoaded } = children;
   const { loggedInUsername } = useContext(UserContext);
   const [inputText, setinputText] = useState("");
 
@@ -15,15 +15,15 @@ const CommentInput = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoaded(false);
     setinputText("");
     return postComment(article_id, loggedInUsername, inputText).then(
-      (result) => {
-        setCommentsData((current) => {
-          return [result, ...current];
+      ({comment}) => {
+        console.log(comment)
+        setFreshCommentsData((current) => {
+          return [comment, ...current];
         });
-        setCommentCounter((current) => {
-          return current + 1;
-        });
+        setCommentCounter(current => current +1);
       }
     );
   };
@@ -31,16 +31,16 @@ const CommentInput = (props) => {
   return (
     <div className="card">
       <form
-        onSubmit={(event) => {
-          handleSubmit(event);
+        onSubmit={(e) => {
+          handleSubmit(e);
         }}
       >
         <textarea
           type="text"
           name="comment"
           placeholder="Add comment..."
-          onChange={(event) => {
-            handleChange(event.target.value);
+          onChange={(e) => {
+            handleChange(e.target.value);
           }}
           value={inputText}
           required

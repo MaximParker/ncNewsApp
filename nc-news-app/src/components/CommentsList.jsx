@@ -10,32 +10,34 @@ import Loading from "./Loading";
 const CommentsList = (props) => {
   const { article_id } = useParams();
   const { comment_count } = props.children;
-  const [commentCounter, setCommentCounter] = useState(comment_count);
+  const [commentCounter, setCommentCounter] = useState(parseInt(comment_count));
   const [commentsData, setCommentsData] = useState([]);
+  const [freshCommentsData, setFreshCommentsData] = useState([]);
   const [isLoaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    setLoaded(false);
-    getCommentsByArticleID(article_id)
-      .then((result) => {
-        setCommentsData(result);
-      })
-      .then(() => {
-        setLoaded(true);
-      });
+    console.log("LOADING COMMENTS FROM DATABASE!");
+    getCommentsByArticleID(article_id).then((result) => {
+      setCommentsData(result);
+    });
+  }, [article_id]);
+
+  useEffect(() => {
+    setLoaded(false)
+    setLoaded(true);
   }, [commentCounter]);
 
   return (
     <section className="container">
       <Loading isLoaded={isLoaded} />
       <>
-        <h1 id="comments">Comments ({comment_count})</h1>
+        <h1 id="comments">Comments ({commentCounter})</h1>
         <CommentInput>
-          {{ setCommentsData, setCommentCounter }}
+          {{ setFreshCommentsData, setCommentCounter, setLoaded }}
         </CommentInput>
         <ul>
-          {commentsData.map(
-            ({body, comment_id, created_at, author}) => {
+          {freshCommentsData.map(
+            ({ body, comment_id, created_at, author, votes }) => {
               return (
                 <li key={comment_id + created_at}>
                   <Comment>
@@ -44,6 +46,26 @@ const CommentsList = (props) => {
                       comment_id,
                       created_at,
                       author,
+                      votes,
+                      setCommentsData: setFreshCommentsData,
+                      setCommentCounter,
+                    }}
+                  </Comment>
+                </li>
+              );
+            }
+          )}
+          {commentsData.map(
+            ({ body, comment_id, created_at, author, votes }) => {
+              return (
+                <li key={comment_id + created_at}>
+                  <Comment>
+                    {{
+                      body,
+                      comment_id,
+                      created_at,
+                      author,
+                      votes,
                       setCommentsData,
                       setCommentCounter,
                     }}

@@ -1,22 +1,25 @@
 import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../contexts/User";
 import { formatDate, deleteComment } from "../utils/api";
+import VoteButtons from "./VoteButtons";
 
-const Comment = (props) => {
+const Comment = ({ children }) => {
   const {
     body,
     comment_id,
     created_at,
     author,
+    votes,
     setCommentsData,
     setCommentCounter,
-  } = props.children;
+  } = children;
   const { loggedInUsername } = useContext(UserContext);
   const [isDisplayingDeleteBox, setDisplayDeleteBox] = useState(false);
   const [isEditing, setEditingComment] = useState(false);
   const [inputText, setinputText] = useState("");
 
   useEffect(() => {
+    console.log("LOADING COMMENT!");
     setinputText(body);
   }, [body]);
 
@@ -69,20 +72,23 @@ const Comment = (props) => {
         <></>
       )}
       <p>{body}</p>
+      <VoteButtons>
+        {{ targetType: "comment", targetID: comment_id, votes }}
+      </VoteButtons>
       {isDisplayingDeleteBox ? (
         <div className="card">
           <button
             className="button__danger"
             onClick={() => {
+              console.log("SENDING FOR DELETION:", comment_id)
               setDisplayDeleteBox(false);
               deleteComment(comment_id);
               setCommentsData((current) => {
-                return current.filter(entry => entry.comment_id !== comment_id)
-              }).then(() => {
-                setCommentCounter((current) => {
-                  return current - 1;
-                });
+                return current.filter(
+                  (entry) => entry.comment_id !== comment_id
+                );
               });
+              setCommentCounter(current => current - 1);
             }}
           >
             Delete

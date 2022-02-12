@@ -52,7 +52,7 @@ function Article() {
               <div className="card">
                 <p>{body}</p>
               </div>
-              <VoteButtons>{{ article_id, votes }}</VoteButtons>
+              <VoteButtons>{{ targetType: 'article', targetID: article_id, votes }}</VoteButtons>
               <Link to={`/articles/${article_id}#comments`}>
                 <button>Comments ({comment_count})</button>
               </Link>
