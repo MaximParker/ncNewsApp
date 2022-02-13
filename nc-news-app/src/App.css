@@ -134,6 +134,14 @@ textarea {
   resize:vertical;
 }
 
+input {
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  padding: 5px;
+  border-radius: 5px;
+  width: calc(100% - 12px);
+}
+
 #Article__edit-article {
   height: 150px;
 }
@@ -164,6 +172,7 @@ textarea {
   display: flex;
   padding: 5px;
   list-style-type: none;
+  background-color: var(--container);
 }
 
 #sort-options {

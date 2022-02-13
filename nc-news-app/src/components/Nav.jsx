@@ -1,5 +1,5 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../contexts/User";
 
 function Nav() {
@@ -9,7 +9,9 @@ function Nav() {
       <Link to="/">
         <img src="../../logo512.png" alt="logo" height="64px"></img>
       </Link>
-      <div className="nav__grid"></div>
+      <div className="nav__grid">
+      <button>New post</button>
+      </div>
       <div className="nav__grid">
         <span>{loggedInUsername}</span>
       </div>

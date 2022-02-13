@@ -37,7 +37,7 @@ function Article() {
           navigate("/500");
         }
       });
-  }, [article_id]);
+  }, [article_id, navigate]);
 
   const handleChange = (input) => {
     setInputText(input);

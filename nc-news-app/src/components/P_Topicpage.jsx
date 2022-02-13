@@ -38,7 +38,7 @@ function Topicpage() {
           navigate("/500");
         }
       });
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     setLoaded(false);
@@ -56,7 +56,7 @@ function Topicpage() {
           navigate("/500");
         }
       });
-  }, [topic, sortBy, orderBy]);
+  }, [topic, sortBy, orderBy, navigate]);
 
   return (
     <>
