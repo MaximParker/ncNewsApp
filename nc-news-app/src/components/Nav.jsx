@@ -10,7 +10,13 @@ function Nav() {
         <img src="../../logo512.png" alt="logo" height="64px"></img>
       </Link>
       <div className="nav__grid">
-      <button>New post</button>
+      <Link to="/new_article">
+      <button>New article</button>
+      </Link>
+      <Link to="/about">
+      <button>About</button>
+      </Link>
+      
       </div>
       <div className="nav__grid">
         <span>{loggedInUsername}</span>

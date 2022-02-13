@@ -2,9 +2,9 @@
 
 ## Introduction
 
-**nc-news-app** is a [React](https://reactjs.org/) front-end web-app for a messageboard-style forum. It draws builds on the [Forum-Factory API](https://github.com/MaximParker/forum-factory), topics, articles, and comments.
+**nc-news-app** is a [React](https://reactjs.org/) front-end web-app for a messageboard-style forum. It is built on the [Forum-Factory API](https://github.com/MaximParker/forum-factory).
 
-> A live version can be accessed here: https://forum-factory.herokuapp.com/api
+> A live version can be accessed here: https://maximparker-nc-news.netlify.app/
 
 Written by [Maxim Parker](github.com/MaximParker). Latest version 1.0.0 (12 Feb 2022).
 

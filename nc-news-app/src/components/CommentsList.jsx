@@ -73,8 +73,8 @@ const CommentsList = (props) => {
               );
             }
           )}
-          <BackToTop />
         </ul>
+        <BackToTop />
       </>
     </section>
   );

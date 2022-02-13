@@ -83,10 +83,10 @@ function Topicpage() {
         </section>
         <section id="sort-options">
           <h1>{topic}</h1>
-          <label htmlFor="select-sort-by">By </label>
+          <label htmlFor="sort-articles-by">By </label>
           <select
-            name="select-sort-by"
-            id="select-sort-by"
+            name="sort-articles-by"
+            id="sort-articles-by"
             defaultValue={"created_at"}
             onChange={(event) => {
               setSortBy(event.target.value);
@@ -109,8 +109,8 @@ function Topicpage() {
             </option>
           </select>
           <select
-            name="select-order-by"
-            id="select-order-by"
+            name="order-articles-by"
+            id="order-articles-by"
             defaultValue={"desc"}
             onChange={(event) => {
               setOrderBy(event.target.value);
@@ -160,8 +160,8 @@ function Topicpage() {
                 );
               }
             )}
-            <BackToTop />
           </ul>
+          <BackToTop />
         </section>
         <Footer />
       </>

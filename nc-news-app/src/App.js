@@ -7,6 +7,7 @@ import Topicpage from "./components/P_Topicpage";
 import Article from "./components/P_Article";
 import NewArticle from "./components/P_NewArticle";
 import Error404 from "./components/P_404";
+import About from "./components/P_About";
 
 function App() {
   const [loggedInUsername, setLoggedInUsername] = useState("jessjelly");
@@ -20,6 +21,7 @@ function App() {
           <Route path="/t/:topic" element={<Topicpage />} />
           <Route path="/articles/:article_id" element={<Article />} />
           <Route path="/new_article" element={<NewArticle />} />
+          <Route path="/about" element={<About />} />
           <Route path="/404" element={<Error404 />} />
           <Route path="*" element={<Error404 />} />
         </Routes>

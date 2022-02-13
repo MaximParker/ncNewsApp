@@ -3,44 +3,48 @@ import { Helmet } from "react-helmet";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { UserContext } from "../contexts/User";
-import { formatDate } from "../utils/api";
+import { capitalise, formatDate } from "../utils/api";
 import Footer from "./Footer";
+import Loading from "./Loading";
 
 function NewArticle() {
   const { loggedInUsername } = useContext(UserContext);
   const navigate = useNavigate();
-  const [inputTitle, setInputTitle] = useState("New article");
-  const [inputBody, setInputBody] = useState("Your text will display here.");
+  const [inputTitle, setInputTitle] = useState("");
+  const [inputBody, setInputBody] = useState("");
   const [isPosting, setPosting] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setPosting(true);
     setTimeout(function () {
-      navigate('/');
+      navigate("/");
     }, 5000);
   };
 
   return (
     <>
       <Helmet>
-        <title>{inputTitle}</title>
+        <title>{capitalise(inputTitle) || "New Article"}</title>
       </Helmet>
       <>
         {isPosting ? (
-          <></>
+          <>
+            <h1>Publishing...</h1>
+            <Loading />
+          </>
         ) : (
           <>
-            <h1>New article</h1>
+            <h1>Editor</h1>
             <section className="container">
               <>
-                <h1>{inputTitle} (preview)</h1>
+                <h1>{inputTitle || "New Article"} (preview)</h1>
                 <span>
                   By <strong>{loggedInUsername}</strong>,{" "}
                   {formatDate(new Date())}
                 </span>
                 <div className="card">
-                  <p>{inputBody}</p>
+                  <p>{inputBody || "Your text will display here"}</p>
                 </div>
                 <br></br>
               </>
@@ -52,10 +56,10 @@ function NewArticle() {
                     handleSubmit(e);
                   }}
                 >
-                  <input
+                  <textarea
                     type="text"
                     name="title"
-                    placeholder="Add comment..."
+                    placeholder="Title..."
                     onChange={(e) => {
                       setInputTitle(e.target.value);
                     }}
@@ -65,25 +69,25 @@ function NewArticle() {
                   <textarea
                     type="text"
                     name="body"
-                    placeholder="Add comment..."
+                    placeholder="Article text..."
                     onChange={(e) => {
                       setInputBody(e.target.value);
                     }}
                     value={inputBody}
                     required
                   />
-                  <button type="submit">Add comment</button>
+                  <button type="submit">Submit</button>
+                  <span>By clicking 'submit', you agree to our</span>
+                  <Link to="/about#content-policy">
+                    <span>
+                      <strong>Content Policy.</strong>
+                    </span>
+                  </Link>
                 </form>
               </div>
             </section>
           </>
         )}
-
-        <p className="topics">
-          <Link to={`/`}>
-            <strong>More about "topic"</strong>
-          </Link>
-        </p>
         <Footer />
       </>
     </>
