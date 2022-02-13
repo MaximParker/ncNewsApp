@@ -79,7 +79,6 @@ const Comment = ({ children }) => {
           <button
             className="button__danger"
             onClick={() => {
-              console.log("SENDING FOR DELETION:", comment_id)
               setDisplayDeleteBox(false);
               deleteComment(comment_id);
               setCommentsData((current) => {

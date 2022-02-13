@@ -126,10 +126,16 @@ button:active {
 }
 
 textarea {
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  padding: 5px;
   border-radius: 5px;
-  resize:none;
-  height: 30px;
-  width: 100%;
+  width: calc(100% - 12px);
+  resize:vertical;
+}
+
+#Article__edit-article {
+  height: 150px;
 }
 
 .container {

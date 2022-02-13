@@ -5,15 +5,12 @@ const VoteButtons = ({children}) => {
   const {targetType, targetID, votes} = children;
   const [voted, setVoted] = useState(false);
   const [score, setScore] = useState(votes);
-  console.log(`${targetType} ${targetID} has a score of ${score} (voted=${voted})`)
 
   const handleClick = (increment) => {
-    console.log(`VOTING ${increment} ON ${targetType} ${targetID}`)
     setVoted(true)
     setScore(score + increment);
     sendVotes(targetType, targetID, increment)
-    .catch((err) => {
-      console.log(err);
+    .catch(() => {
       setScore(score);
     });
   }

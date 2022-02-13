@@ -19,7 +19,6 @@ const CommentInput = ({children}) => {
     setinputText("");
     return postComment(article_id, loggedInUsername, inputText).then(
       ({comment}) => {
-        console.log(comment)
         setFreshCommentsData((current) => {
           return [comment, ...current];
         });

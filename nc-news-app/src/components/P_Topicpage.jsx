@@ -27,7 +27,6 @@ function Topicpage() {
   const [orderBy, setOrderBy] = useState("desc");
 
   useEffect(() => {
-    console.log("LOADING PAGE");
     getAllTopics()
       .then((result) => {
         setTopicsList(result);
