@@ -3,11 +3,12 @@ import { useParams } from "react-router-dom";
 import { UserContext } from "../contexts/User";
 import { postComment } from "../utils/api";
 
-const CommentInput = ({children}) => {
+const CommentInput = ({ children }) => {
   const { article_id } = useParams();
   const { setFreshCommentsData, setCommentCounter, setLoaded } = children;
   const { loggedInUsername } = useContext(UserContext);
   const [inputText, setinputText] = useState("");
+  const [showingPostFeedback, showPostFeedback] = useState(false);
 
   const handleChange = (input) => {
     setinputText(input);
@@ -18,11 +19,15 @@ const CommentInput = ({children}) => {
     setLoaded(false);
     setinputText("");
     return postComment(article_id, loggedInUsername, inputText).then(
-      ({comment}) => {
+      ({ comment }) => {
         setFreshCommentsData((current) => {
           return [comment, ...current];
         });
-        setCommentCounter(current => current +1);
+        setCommentCounter((current) => current + 1);
+        showPostFeedback(true);
+        setTimeout(function () {
+          showPostFeedback(false);
+        }, 5000);
       }
     );
   };
@@ -45,6 +50,11 @@ const CommentInput = ({children}) => {
           required
         />
         <button type="submit">Add comment</button>
+        {showingPostFeedback ? (
+          <span>✅ Comment posted</span>
+        ) : (
+          <></>
+        )}
       </form>
     </div>
   );

@@ -33,7 +33,7 @@ export const getCommentsByArticleID = (id) => {
   });
 };
 
-export const sendVotes = (targetType, id, increment) => {
+export const patchVotes = (targetType, id, increment) => {
   let patchObject = { inc_votes: increment };
   let targetPath = "";
   if (targetType === "comment") {
@@ -43,6 +43,13 @@ export const sendVotes = (targetType, id, increment) => {
   }
   return db.patch(targetPath, patchObject).then((res) => {
     return res.data[targetType].votes;
+  });
+};
+
+export const patchArticle = (id, newBody) => {
+  let patchObject = { newBody };
+  return db.patch(`/articles/${id}?patch=body`, patchObject).then((res) => {
+    return res.data.article;
   });
 };
 

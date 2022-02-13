@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../contexts/User";
-import { getArticleByID, formatDate } from "../utils/api";
+import { getArticleByID, formatDate, patchArticle } from "../utils/api";
 import Footer from "./Footer";
 import VoteButtons from "./VoteButtons";
 import CommentsList from "./CommentsList";
@@ -19,6 +19,7 @@ function Article() {
   const [isLoaded, setLoaded] = useState(false);
   const [isEditing, setEditing] = useState(false);
   const [inputText, setInputText] = useState("");
+  const [showingEditFeedback, showEditFeedback] = useState(false);
 
   useEffect(() => {
     getArticleByID(article_id)
@@ -45,7 +46,24 @@ function Article() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setEditing(false);
-    console.log(inputText + `\n *** Edited ${new Date()}`)
+    if (inputText !== body) {
+      patchArticle(article_id, inputText);
+      setArticleData((current) => {
+        return {
+          body: inputText,
+          title,
+          author,
+          created_at,
+          votes,
+          comment_count,
+          topic,
+        };
+      });
+      showEditFeedback(true);
+      setTimeout(function () {
+        showEditFeedback(false);
+      }, 5000);
+    }
   };
 
   return (
@@ -83,8 +101,9 @@ function Article() {
                   Edit article
                 </button>
               ) : (
-                <span>not allowed to edit :(</span>
+                <></>
               )}
+              {showingEditFeedback ? <span>✅ Edited</span> : <></>}
               <br></br>
               {isEditing ? (
                 <div className="card">
@@ -103,11 +122,7 @@ function Article() {
                       }}
                       required
                     />
-                    <button
-                      type="submit"
-                    >
-                      Confirm edit
-                    </button>
+                    <button type="submit">Confirm edit</button>
                     <button
                       onClick={() => {
                         setEditing(false);

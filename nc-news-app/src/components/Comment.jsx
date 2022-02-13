@@ -35,10 +35,13 @@ const Comment = ({ children }) => {
       <span className="span__small">
         <strong>{author}</strong> {formatDate(created_at)}
       </span>
+      <p>{body}</p>
+      <VoteButtons>
+        {{ targetType: "comment", targetID: comment_id, votes }}
+      </VoteButtons>
       {author === loggedInUsername ? (
-        <span className="span__small">
-          (
-          <u
+        <>
+          <button
             onClick={() => {
               if (!isEditing) {
                 setEditingComment(true);
@@ -50,9 +53,8 @@ const Comment = ({ children }) => {
             }}
           >
             Edit comment
-          </u>
-          ) (
-          <u
+          </button>
+          <button
             onClick={() => {
               if (!isDisplayingDeleteBox) {
                 setEditingComment(false);
@@ -64,16 +66,11 @@ const Comment = ({ children }) => {
             }}
           >
             Delete
-          </u>
-          )
-        </span>
+          </button>
+        </>
       ) : (
         <></>
       )}
-      <p>{body}</p>
-      <VoteButtons>
-        {{ targetType: "comment", targetID: comment_id, votes }}
-      </VoteButtons>
       {isDisplayingDeleteBox ? (
         <div className="card">
           <button

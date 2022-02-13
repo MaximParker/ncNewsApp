@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { sendVotes } from "../utils/api";
+import { patchVotes } from "../utils/api";
 
 const VoteButtons = ({children}) => {
   const {targetType, targetID, votes} = children;
@@ -9,7 +9,7 @@ const VoteButtons = ({children}) => {
   const handleClick = (increment) => {
     setVoted(true)
     setScore(score + increment);
-    sendVotes(targetType, targetID, increment)
+    patchVotes(targetType, targetID, increment)
     .catch(() => {
       setScore(score);
     });
