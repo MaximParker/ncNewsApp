@@ -17,6 +17,7 @@ function NewArticle() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setPosting(true);
+
     setTimeout(function () {
       navigate("/");
     }, 5000);
@@ -76,6 +77,7 @@ function NewArticle() {
                     value={inputBody}
                     required
                   />
+                  {/* Add required category dropdown, and then the postNewArticle function */}
                   <button type="submit">Submit</button>
                   <span>By clicking 'submit', you agree to our</span>
                   <Link to="/about#content-policy">
