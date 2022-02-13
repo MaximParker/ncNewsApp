@@ -16,7 +16,6 @@ const CommentsList = (props) => {
   const [isLoaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    console.log("LOADING COMMENTS FROM DATABASE!");
     getCommentsByArticleID(article_id).then((result) => {
       setCommentsData(result);
     });

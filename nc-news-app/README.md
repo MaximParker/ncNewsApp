@@ -23,14 +23,13 @@ $ npm start
 The locally hosted web-app will open in your browser.
 
 ---
-## Changing database link
-Beware that the database link may not be currently available. In order to run on your own copy of Forum-Factory, change the `baseURL` of the `axios.create` function in `nc-news-app/nc-news-app/src/utils/api.js`:
+## Changing API link
+Beware that the API link may not be currently available. In order to use your own, change the `baseURL` of the `axios.create` function in `/src/utils/api.js`:
 ```
 const db = axios.create({
   baseURL: /* your URL here */,
 });
 ```
-Note that `baseURL` should always end with `/api/`.
 
 ---
 ## Acknowledgements

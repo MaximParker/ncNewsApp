@@ -42,7 +42,7 @@ export const sendVotes = (targetType, id, increment) => {
     targetPath = `/articles/${id}?patch=votes`;
   }
   return db.patch(targetPath, patchObject).then((res) => {
-    return res.data.article.votes;
+    return res.data[targetType].votes;
   });
 };
 

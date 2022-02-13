@@ -19,7 +19,6 @@ const Comment = ({ children }) => {
   const [inputText, setinputText] = useState("");
 
   useEffect(() => {
-    console.log("LOADING COMMENT!");
     setinputText(body);
   }, [body]);
 
